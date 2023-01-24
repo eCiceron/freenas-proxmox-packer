@@ -45,6 +45,15 @@ jobs:
           sudo chmod 0755 ${{ env.gitBranch }}/DEBIAN/postrm
           sudo dpkg-deb --build ${{ env.gitBranch }} dist/${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
 
+      #- uses: singingwolfboy/build-dpkg-buster@v1
+      #  id: build
+      #  with:
+       #   args: --unsigned-source --unsigned-changes
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: dist/${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
+          path: dist/${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
 
       # - name: Upload Debian package to JFrog
       #   run: |
