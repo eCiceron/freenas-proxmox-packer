@@ -1,0 +1,17 @@
+Source: freenas-proxmox
+Section: perl
+Priority: optional
+Maintainer: eCiceron AB <tech@eciceron.com>
+Uploaders: Jim Nelin <jim.nelin@eciceron.com>
+Depends: librest-client-perl, git
+Standards-Version: 4.5.0
+Vcs-Git: https://github.com/eciceron/freenas-proxmox.git
+Vcs-Browser: https://github.com/eciceron/freenas-proxmox.git
+Homepage: https://github.com/eciceron/freenas-proxmox/wiki
+Package: freenas-proxmox
+Architecture: all
+Version: 3.0.1-eCiceron
+Pre-Depends: librest-client-perl, git
+Provides: freenas-proxmox
+Description: FreeNAS Plugin for Proxmox VE 7+
+ A Proxmox VE storage plugin to interface with FreeNAS v2 APIs.
