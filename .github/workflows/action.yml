@@ -12,15 +12,15 @@ jobs:
   Build_freenas-proxmox_Debian_package:
     runs-on: ubuntu-latest
     steps:
-      - name: Set our variables for the ng branch for the development repo.
-        if: contains(github.event.client_payload.ref, 'dev')
+      - name: Set our variables for the dev branch for the development repo.
+        #if: contains(github.event.client_payload.ref, 'dev')
         run: |
           echo "pluginVersion=3.0.1-eCiceron" >> $GITHUB_ENV
-          echo "gitBranch=development" >> $GITHUB_ENV
+          echo "gitBranch=dev" >> $GITHUB_ENV
           echo "debComponent=development" >> $GITHUB_ENV
 
       - name: Set our variables for the 2.0 branch for the stable repo.
-        #if: contains(github.event.client_payload.ref, 'master')
+        if: contains(github.event.client_payload.ref, 'v2.0')
         run: |
           echo "pluginVersion=2.2.2-eCiceron" >> $GITHUB_ENV
           echo "gitBranch=stable/v2.0" >> $GITHUB_ENV
@@ -37,6 +37,12 @@ jobs:
           sudo chmod 0755 ${{ env.gitBranch }}/DEBIAN/postinst
           sudo chmod 0755 ${{ env.gitBranch }}/DEBIAN/postrm
           sudo dpkg-deb --build ${{ env.gitBranch }} ${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        #if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ${{ env.pluginName }}-${{ env.pluginVersion }}_all.deb
 
       # - name: Upload Debian package to JFrog
       #   run: |
