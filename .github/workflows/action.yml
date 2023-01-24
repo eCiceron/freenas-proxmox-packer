@@ -26,13 +26,6 @@ jobs:
       #     echo "gitBranch=dev" >> $GITHUB_ENV
       #     echo "debComponent=main" >> $GITHUB_ENV
 
-      # - name: Set our variables for the 2.0 branch for the stable repo.
-      #   if: contains(github.event.client_payload.ref, 'v2.0')
-      #   run: |
-      #     echo "pluginVersion=2.2.2-eCiceron" >> $GITHUB_ENV
-      #     echo "gitBranch=stable/v2.0" >> $GITHUB_ENV
-      #     echo "debComponent=main" >> $GITHUB_ENV
-
       - name: Make sure dpkg is installed.
         run: sudo apt-get install dpkg
 
