@@ -15,7 +15,7 @@ REST_CLIENT_FILEPATH="/perl5/REST/Client.pm"
 GIT_REPO="https://github.com/eCiceron/"
 GIT_LOCAL_REPO_PATH="/usr/local/src/"
 GIT_REPO_NAME="freenas-proxmox"
-GIT_BRANCH="dev"
+GIT_BRANCH="master"
 RESTART_PVE_SERVICES="no"
 
 # This script is called as the last step of the installation of the

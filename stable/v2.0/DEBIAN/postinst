@@ -3,7 +3,7 @@
 set -e
 
 # Debug variable - Values "on" or "off"
-_DEBUG="on"
+_DEBUG="off"
 
 # Setup some variables so we are not duping the paths
 LIB_PATH="/usr/share"
@@ -15,7 +15,7 @@ REST_CLIENT_FILEPATH="/perl5/REST/Client.pm"
 GIT_REPO="https://github.com/eCiceron/"
 GIT_LOCAL_REPO_PATH="/usr/local/src/"
 GIT_REPO_NAME="freenas-proxmox"
-GIT_BRANCH="master"
+GIT_BRANCH="v2.0"
 RESTART_PVE_SERVICES="yes"
 
 # This script is called as the last step of the installation of the
