@@ -13,7 +13,7 @@ APIDOC_FILEPATH="/pve-docs/api-viewer/apidoc.js"
 FREENAS_FILEPATH="/perl5/PVE/Storage/LunCmd/FreeNAS.pm"
 GIT_LOCAL_REPO_PATH="/usr/local/src/"
 GIT_REPO_NAME="freenas-proxmox"
-GIT_BRANCH="1.0"
+GIT_BRANCH="master"
 RESTART_PVE_SERVICES="no"
 
 # This script is called as the last step of the installation of the

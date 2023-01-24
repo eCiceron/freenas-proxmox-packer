@@ -12,11 +12,11 @@ ZFSPLUGIN_FILEPATH="/perl5/PVE/Storage/ZFSPlugin.pm"
 APIDOC_FILEPATH="/pve-docs/api-viewer/apidoc.js"
 FREENAS_FILEPATH="/perl5/PVE/Storage/LunCmd/FreeNAS.pm"
 REST_CLIENT_FILEPATH="/perl5/REST/Client.pm"
-GIT_REPO="https://github.com/TheGrandWazoo/"
+GIT_REPO="https://github.com/eCiceron/"
 GIT_LOCAL_REPO_PATH="/usr/local/src/"
 GIT_REPO_NAME="freenas-proxmox"
 GIT_BRANCH="master"
-RESTART_PVE_SERVICES="no"
+RESTART_PVE_SERVICES="yes"
 
 # This script is called as the last step of the installation of the
 # package.  All the package's files are in place, dpkg has already
@@ -35,12 +35,13 @@ major_ver=${proxmox_ve_ver%%.*}
 
 # Test if the freenas-proxmox repo has been downloaded. If not clone it, else
 # update the repo with a pull.
-if test -e ${GIT_LOCAL_REPO_PATH}${GIT_REPO_NAME}; then
-  [ "${_DEBUG}" == "on" ] && echo "Removing proxmox-freenas local clone."
-  rm -rf ${GIT_LOCAL_REPO_PATH}${GIT_REPO_NAME}
+if test ! -e ${GIT_LOCAL_REPO_PATH}${GIT_REPO_NAME}; then
+  [ "${_DEBUG}" == "on" ] && echo "Cloning proxmox-freenas github repo"
+  git -C ${GIT_LOCAL_REPO_PATH} clone ${GIT_REPO}${GIT_REPO_NAME}.git
+else
+  [ "${_DEBUG}" == "on" ] && echo "Pulling proxmox-freenas github repo"
+  git -C ${GIT_LOCAL_REPO_PATH}${GIT_REPO_NAME} pull
 fi
-[ "${_DEBUG}" == "on" ] && echo "Cloning proxmox-freenas github repo"
-git -C ${GIT_LOCAL_REPO_PATH} clone ${GIT_REPO}${GIT_REPO_NAME}.git
 
 # What is the 'postinst' script doing...
 [ "$_DEBUG" == "on" ] && echo "Initiating '$1' with arg '$2'"

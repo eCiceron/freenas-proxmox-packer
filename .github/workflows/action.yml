@@ -12,31 +12,17 @@ jobs:
   Build_freenas-proxmox_Debian_package:
     runs-on: ubuntu-latest
     steps:
-      - name: Set our variables for the feature branch.
-        if: contains(github.event.client_payload.ref, 'feature')
-        run: |
-          echo "pluginVersion=3.0.0-0-alpha1" >> $GITHUB_ENV
-          echo "repoVersion=development" >> $GITHUB_ENV
-          echo "repoTagetDir=${{ secrets.KSAT_REPO_DEVELOPMENT_TARGET }}" >> $GITHUB_ENV
-
       - name: Set our variables for the ng branch for the development repo.
-        if: contains(github.event.client_payload.ref, 'ng')
+        if: contains(github.event.client_payload.ref, 'dev')
         run: |
-          echo "pluginVersion=3.0.0-0-alpha1" >> $GITHUB_ENV
+          echo "pluginVersion=3.0.1-eCiceron" >> $GITHUB_ENV
           echo "gitBranch=development" >> $GITHUB_ENV
           echo "debComponent=development" >> $GITHUB_ENV
 
-      - name: Set our variables for the master branch for the testing repo.
-#        if: contains(github.event.client_payload.ref, 'master')
-        run: |
-          echo "pluginVersion=2.2.0-0-beta7" >> $GITHUB_ENV
-          echo "gitBranch=testing" >> $GITHUB_ENV
-          echo "debComponent=testing" >> $GITHUB_ENV
-
       - name: Set our variables for the 2.0 branch for the stable repo.
-        if: contains(github.event.client_payload.ref, '2.0')
+        if: contains(github.event.client_payload.ref, 'master')
         run: |
-          echo "pluginVersion=2.1.0-1" >> $GITHUB_ENV
+          echo "pluginVersion=2.2.2-eCiceron" >> $GITHUB_ENV
           echo "gitBranch=stable/v2.0" >> $GITHUB_ENV
           echo "debComponent=main" >> $GITHUB_ENV
 
@@ -52,10 +38,10 @@ jobs:
           sudo chmod 0755 ${{ env.gitBranch }}/DEBIAN/postrm
           sudo dpkg-deb --build ${{ env.gitBranch }} ${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
 
-      - name: Upload Debian package to JFrog
-        run: |
-          sudo ls -l
-          sudo curl -u${{ secrets.JFROG_REPO_USERNAME }}:${{ secrets.JFROG_REPO_PASSWORD }} -X PUT "${{ secrets.JFROG_REPO_URL }}${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb;deb.distribution=${{ env.debDistro }};deb.component=${{ env.debComponent }};deb.architecture=all" -T ${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
+      # - name: Upload Debian package to JFrog
+      #   run: |
+      #     sudo ls -l
+      #     sudo curl -u${{ secrets.JFROG_REPO_USERNAME }}:${{ secrets.JFROG_REPO_PASSWORD }} -X PUT "${{ secrets.JFROG_REPO_URL }}${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb;deb.distribution=${{ env.debDistro }};deb.component=${{ env.debComponent }};deb.architecture=all" -T ${{ env.pluginName }}_${{ env.pluginVersion }}_all.deb
 
 
 #      - name: Remove old packages from repo.
