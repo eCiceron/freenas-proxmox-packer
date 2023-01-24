@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set our variables for the dev branch for the development repo.
-        if: contains(github.event.client_payload.ref, 'master')
+        #if: contains(github.event.client_payload.ref, 'master')
         run: |
           echo "pluginVersion=3.0.1-eCiceron" >> $GITHUB_ENV
           echo "gitBranch=master" >> $GITHUB_ENV
